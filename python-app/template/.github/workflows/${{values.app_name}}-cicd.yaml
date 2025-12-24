@@ -68,16 +68,16 @@ jobs:
       - name: ArgoCD App Create and Sync
         shell: bash
         run: |
-          repo="https://github.com/aumthakkar/${{values.app_name}}.git"
+          repo="https://github.com/aum-thakkar/${{values.app_name}}.git"
 
-          argocd repo list | grep ${{values.app_name}} || argocd repo add ${repo}          
+          argocd repo list | grep ${repo} || argocd repo add ${repo}
           
           argocd app get ${{values.app_name}} || argocd app create ${{values.app_name}} \
           --dest-namespace ${{values.app_env}} \
           --dest-server https://kubernetes.default.svc \
           --path charts/${{values.app_name}} \
           --repo "${repo}" \
-          --sync-option manual \
+          --sync-policy manual \
           --revision main \
           --sync-option CreateNamespace=true \
           --values values-${{values.app_env}}.yaml
