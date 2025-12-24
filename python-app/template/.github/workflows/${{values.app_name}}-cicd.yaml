@@ -42,7 +42,7 @@ jobs:
           sudo apt update && sudo apt install python3-pip -y
           pip install yq --break-system-packages
           echo ${{ '${{ needs.ci.outputs.commit_id }}' }}
-          yq -Yi '.image.tag = "${{ '${{ needs.ci.outputs.commit_id }}' }}"' charts/${{ values.app_env }}/values-${{ values.app_env }}.yaml
+          yq -Yi '.image.tag = "${{ '${{ needs.ci.outputs.commit_id }}' }}"' charts/${{ values.app_name }}/values-${{ values.app_env }}.yaml
 
       - name: Commit your changes
         uses: EndBug/add-and-commit@v9
