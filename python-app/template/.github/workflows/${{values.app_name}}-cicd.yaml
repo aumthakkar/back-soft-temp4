@@ -65,4 +65,26 @@ jobs:
             --username ${{ '${{ secrets.ARGOCD_USERNAME }}' }} \
             --password ${{ '${{ secrets.ARGOCD_PASSWORD }}' }}
 
-          argocd app sync ${{ values.app_name }}
+      - name: ArgoCD App Create and Sync
+        shell: bash
+        run: |
+          repo="https://github.com/aumthakkar/${{values.app_name}}.git"
+
+          argocd repo list | grep ${{values.app_name}} || argocd repo add ${repo}          
+          
+          argocd app get ${{values.app_name}} || argocd app create ${{values.app_name}} \
+          --dest-namespace ${{values.app_env}} \
+          --dest-server https://kubernetes.default.svc \
+          --path charts/${{values.app_name}} \
+          --repo "${repo}" \
+          --sync-option manual \
+          --revision main \
+          --sync-option CreateNamespace=true \
+          --values values-${{values.app_env}}.yaml
+
+          # Sync the App
+          argocd app sync ${{values.app_name}}
+          argocd app wait ${{values.app_name}} --timeout 120
+
+
+          
