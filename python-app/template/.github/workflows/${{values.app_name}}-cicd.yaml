@@ -70,7 +70,7 @@ jobs:
         run: |
           repo="https://github.com/aum-thakkar/${{values.app_name}}.git"
 
-          argocd repo list | grep ${repo} || argocd repo add ${repo}
+          argocd repo list ${repo} | grep ${repo} || argocd repo add ${repo}
           
           argocd app get ${{values.app_name}} || argocd app create ${{values.app_name}} \
           --dest-namespace ${{values.app_env}} \
