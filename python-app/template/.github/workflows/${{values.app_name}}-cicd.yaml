@@ -56,7 +56,7 @@ jobs:
           sudo install -m 555 argocd-linux-amd64 /usr/local/bin/argocd
           sudo chmod +x /usr/local/bin/argocd
         
-      - name: Sync App using ArgoCD
+      - name: ArgoCD login
         shell: bash
         run: |
           argocd login argocd-server.argocd \
