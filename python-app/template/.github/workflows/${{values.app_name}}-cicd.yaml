@@ -65,9 +65,6 @@ jobs:
             --username ${{ '${{ secrets.ARGOCD_USERNAME }}' }} \
             --password ${{ '${{ secrets.ARGOCD_PASSWORD }}' }}
 
-      - name: ArgoCD App Create and Sync
-        shell: bash
-        run: |
           repo="https://github.com/aum-thakkar/${{values.app_name}}.git"
 
           argocd repo list ${repo} | grep ${repo} || argocd repo add ${repo}
