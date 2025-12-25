@@ -78,7 +78,7 @@ jobs:
           --path charts/${{values.app_name}} \
           --repo ${repo} \
           --revision main \
-          --sync-policy manual \  
+          --sync-policy manual \
           --sync-option CreateNamespace=true \
           --values values-${{values.app_env}}.yaml
 
