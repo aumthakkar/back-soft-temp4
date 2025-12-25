@@ -6,4 +6,4 @@ This application has two endpoints:
 
 # How to access the app?
 
-You can access this app by accessing the URL: '${{ values.app_name }}.test.com/api/v1/info'
+You can access this app by accessing the URL: '${{ values.app_name }}-${{ values.app_env }}.test.com/api/v1/info'
